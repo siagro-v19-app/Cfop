@@ -12,9 +12,10 @@ sap.ui.define([
 		onRefresh: function(){
 			var oModel = this.getOwnerComponent().getModel();
 			oModel.refresh(true);
+			this.getView().byId("tableCfop").clearSelection();
 		},
 		
-		onIncluir: function(){
+		onIncluirCfop: function(){
 			var oDialog = this._criarDialog();
 			var oModel = this.getOwnerComponent().getModel();
 			var oViewModel = this.getModel("view");
@@ -43,7 +44,7 @@ sap.ui.define([
 			oDialog.open();
 		},
 		
-		onEditar: function(){
+		onEditarCfop: function(){
 			var oDialog = this._criarDialog();
 			var oTable = this.byId("tableCfop");
 			var nIndex = oTable.getSelectedIndex();
@@ -56,7 +57,7 @@ sap.ui.define([
 			});
 			
 			if(nIndex === -1){
-				MessageBox.information("Selecione um CFOP da tabela!");
+				MessageBox.warning("Selecione um CFOP da tabela!");
 				return;
 			}
 			
@@ -66,13 +67,13 @@ sap.ui.define([
 			oDialog.open();
 		},
 		
-		onRemover: function(){
+		onRemoverCfop: function(){
 			var that = this;
 			var oTable = this.byId("tableCfop");
 			var nIndex = oTable.getSelectedIndex();
 			
 			if(nIndex === -1){
-				MessageBox.information("Selecione um CFOP da tabela!");
+				MessageBox.warning("Selecione um CFOP da tabela!");
 				return;
 			}
 			
@@ -92,7 +93,7 @@ sap.ui.define([
 			var oViewModel = this.getOwnerComponent().getModel("view");
 			
 			if(this._checarCampos(this.getView()) === true){
-				MessageBox.information("Preencha todos os campos obrigatórios!");
+				MessageBox.warning("Preencha todos os campos obrigatórios!");
 				return;
 			} else{
 				oModel.submitChanges({
