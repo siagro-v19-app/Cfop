@@ -97,15 +97,14 @@ sap.ui.define([
 				return;
 			} else{
 				oModel.submitChanges({
-					success: function(){
-						oModel.refresh(true);
-						MessageBox.success(oViewModel.getData().msgSalvar);
-						oView.byId("CfopDialog").close();
-						oView.byId("tableCfop").clearSelection();
-					},
-					error: function(oError){
-						var sError = JSON.parse( oError.responseText).error.message.value; 
-						MessageBox.error(sError);
+					success: function(oResponse){
+						var erro = oResponse.__batchResponses[0].response;
+						if(!erro){
+							oModel.refresh(true);
+							MessageBox.success(oViewModel.getData().msgSalvar);
+							oView.byId("CfopDialog").close();
+							oView.byId("tableCfop").clearSelection();	
+						}
 					}
 				});
 			}
@@ -129,9 +128,6 @@ sap.ui.define([
 				success: function(){
 					oModel.refresh(true);
 					oTable.clearSelection();
-				},
-				error: function(oError){
-					MessageBox.error(oError.responseText);
 				}
 			});
 		},
