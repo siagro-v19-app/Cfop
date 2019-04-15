@@ -1,12 +1,25 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	"sap/m/MessageBox"
-], function(Controller, MessageBox) {
+	"sap/m/MessageBox",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
+], function(Controller, MessageBox, Filter, FilterOperator) {
 	"use strict";
 
 	return Controller.extend("br.com.idxtecCfop.controller.Cfop", {
 		onInit: function(){
 			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
+		},
+		
+		filtraCfop: function(oEvent){
+			var sQuery = oEvent.getParameter("query");
+			var oFilter = new Filter("Descricao", FilterOperator.Contains, sQuery);
+			
+			var aFilters = [
+				oFilter
+			];
+
+			this.getView().byId("tableCfop").getBinding("rows").filter(aFilters, "Application");
 		},
 	
 		onRefresh: function(){
@@ -15,7 +28,7 @@ sap.ui.define([
 			this.getView().byId("tableCfop").clearSelection();
 		},
 		
-		onIncluirCfop: function(){
+		onIncluir: function(){
 			var oDialog = this._criarDialog();
 			var oModel = this.getOwnerComponent().getModel();
 			var oViewModel = this.getModel("view");
@@ -44,7 +57,7 @@ sap.ui.define([
 			oDialog.open();
 		},
 		
-		onEditarCfop: function(){
+		onEditar: function(){
 			var oDialog = this._criarDialog();
 			var oTable = this.byId("tableCfop");
 			var nIndex = oTable.getSelectedIndex();
@@ -67,7 +80,7 @@ sap.ui.define([
 			oDialog.open();
 		},
 		
-		onRemoverCfop: function(){
+		onRemover  : function(){
 			var that = this;
 			var oTable = this.byId("tableCfop");
 			var nIndex = oTable.getSelectedIndex();
