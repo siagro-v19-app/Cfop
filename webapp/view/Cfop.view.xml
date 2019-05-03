@@ -27,7 +27,7 @@
 							<Toolbar>
 								<Title text="Lista de CFOP"/>
 								<ToolbarSpacer/>
-								<SearchField placeholder="Pesquisar CFOP..." width="30%" search="filtraCfop"/>
+								<SearchField placeholder="Pesquisar descrição..." width="30%" search="filtraCfop"/>
 							</Toolbar>
 						</t:toolbar>
 						<t:columns>
